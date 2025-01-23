@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socket.IO Test Client</title>
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+</head>
+<body>
+    <h1>Socket.IO Test Client</h1>
+    <script>
+        const socket = io('http://localhost:5000'); // Change to your server URL
+
+        socket.on('connect', () => {
+            console.log('Connected to server');
+            // Emit a test event
+            socket.emit('new_chat', {
+                question_text:"write a 100 word story",
+				question_id:"71cbe36d-da47-4e7e-99db-2b89ec768387",
+				user_id : "rohan",
+				user_alias : "rk",
+				user_location : "FBD",
+				start_time : "2024-11-01T09:50:03.456837",
+				media : "",
+				media_type : "",
+				chat_id:"d93cb888-5cfc-4665-8962-7fb2e75ddf55"
+
+            });
+        });
+
+        socket.on('assistant_message', (data) => {
+            console.log('Received message:', data.message);
+        });
+    </script>
+</body>
+</html>

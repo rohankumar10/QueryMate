@@ -1,0 +1,28 @@
+
+
+* * * * * /home/azureuser/ChatAPI/venv/bin/python /home/azureuser/ChatAPI/run.py >> /home/azureuser/ChatAPI/logfile.log 2>&1
+
+sudo nano /etc/systemd/system/myflaskapp.service
+
+
+[Unit]
+Description=My Flask API
+After=network.target
+
+[Service]
+User=azureuser
+Group=www-data
+WorkingDirectory=/home/azureuser/ChatAPI
+Environment="PATH=/home/azureuser/ChatAPI/venv/bin"
+ExecStart=/home/azureuser/ChatAPI/venv/bin/gunicorn --bind 0.0.0.0:5000 --workers 2 run:app
+
+[Install]
+WantedBy=multi-user.target
+
+
+sudo systemctl enable myflaskapp.service
+
+sudo systemctl start myflaskapp.service
+
+
+sudo nano /etc/systemd/system/chatapi.service
